@@ -19,13 +19,24 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COLLINS OLOKPEDJE</title>
+  <meta name="description" content="My portfolio website">
 
   <!-- iOS meta tags & icons -->
+  <link rel="preload" href="canvas.wasm" as="fetch" type="application/wasm">
+  <link rel="preload" href="flutter.js" as="script">
+  <link rel="preload" href="icons/iconlaptop.png" as="image">
+  <link rel="preload" href="https://colin-stark.github.io/Portfolio/assets/fonts/MaterialIcons-Regular.otf" as="font"
+    crossorigin="anonymous">
+  <link rel="preload" href="
+  https://colin-stark.github.io/Portfolio/assets/FontManifest.json" as="fetch" type="application/json">
+
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="portfoliowebsite">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="apple-touch-icon" href="icons/iconlaptop.png">
+
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
@@ -42,15 +53,68 @@
 </head>
 
 <body>
+  <div id="loading" class="loading">
+    <div class="loader">
+      <style>
+        #loading {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.8);
+          /* Semi-transparent background */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          /* Ensure it's on top of other content */
+        }
+
+        /* Styles for the loading animation */
+        .loader {
+          border: 2px solid #f3f3f3;
+          /* Light gray border */
+          border-top: 2px solid #3498db;
+          /* Blue border for the top */
+          border-radius: 50%;
+          /* Circular shape */
+          width: 10em;
+          /* Size of the loader */
+          height: 10em;
+          /* Size of the loader */
+          animation: spin 1s linear infinite;
+          /* Apply animation */
+        }
+
+        /* Keyframe animation for the spinner rotation */
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+
+          /* Start at 0 degrees */
+          100% {
+            transform: rotate(360deg);
+          }
+
+          /* End at 360 degrees (one full rotation) */
+        }
+      </style>
+    </div>
+  </div>
+
   <script>
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
+      let loading = document.querySelector('#loading');
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function (engineInitializer) {
           engineInitializer.initializeEngine().then(function (appRunner) {
+            loading.remove();
             appRunner.runApp();
           });
         }
